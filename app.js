@@ -14,9 +14,9 @@ app.get('/',(req , res) => {
 })
 
 
-app.get('/api/chat', async (req, res) => {
+app.post('/api/chat', async (req, res) => {
     try {
-        const message = req.query.message;
+        const { message } = req.body;
 
         if (!message) {
             return res.status(400).json({ success: false, error: 'Message is required' });
