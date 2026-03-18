@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: 'https://portfolio-mayank-gamma.vercel.app',
+    origin: ['https://portfolio-mayank-gamma.vercel.app', 'http://localhost:5173', 'http://localhost:3000'],
     methods: ['GET', 'POST'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -38,7 +38,7 @@ app.post('/api/chat', async (req, res) => {
         const response = await axios.post(
             'https://openrouter.ai/api/v1/chat/completions',
             {
-                model: 'nvidia/nemotron-3-nano-30b-a3b:free',
+                model: 'stepfun/step-3.5-flash:free',
                 messages: [
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: message }
@@ -66,7 +66,7 @@ app.post('/api/chat', async (req, res) => {
                     }
                     try {
                         const parsed = JSON.parse(data);
-                        const content = parsed.choices[0]?.delta?.content || '';
+                        const content = parsed.choices?.[0]?.delta?.content || '';
                         if (content) {
                             res.write(`data: ${JSON.stringify({ content })}\n\n`);
                         }
@@ -80,8 +80,9 @@ app.post('/api/chat', async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ success: false, error: 'Something went wrong' });
+        console.error('--- ERROR IN CHAT ROUTE ---');
+        console.error(error);
+        res.status(500).json({ success: false, error: 'Something went wrong', message: error.message });
     }
 });
 
