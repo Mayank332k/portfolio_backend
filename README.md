@@ -70,7 +70,7 @@ Streams `text/event-stream` with characters as they are generated.
 
 ## 👤 About Mayank
 
-I'm a Computer Science student (Batch 2024-2027) at Jnan Vikas Mandal's MRM Degree College, focused on Full Stack Development and AI integration.
+I'm a Computer Science student (Batch 2024-2027) at Jnan Vikas Mandal's Mehata Degree College, focused on Full Stack Development and AI integration.
 
 - **Email:** [singhmayank4146@gmail.com](mailto:singhmayank4146@gmail.com)
 - **LinkedIn:** [Mayank Singh](https://www.linkedin.com/in/mayank-singh-813b68373/)
