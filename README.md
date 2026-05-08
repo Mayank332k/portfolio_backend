@@ -4,7 +4,7 @@ This is the backend service for **Mayank Singh's Portfolio Website**. It powers 
 
 ## 🌟 Features
 
-- **AI-Powered Chat:** Integrates with OpenRouter to provide real-time, streaming AI responses.
+- **AI-Powered Chat:** Integrates with NVIDIA AI (Gemma model) to provide real-time, streaming AI responses.
 - **Server-Sent Events (SSE):** Supports streaming responses for a smooth, modern UI experience.
 - **Personalized Persona:** Uses a custom system prompt to maintain a consistent "Mayank Singh" identity.
 - **Secure Integration:** Keeps sensitive API keys hidden from the frontend.
@@ -16,7 +16,7 @@ This is the backend service for **Mayank Singh's Portfolio Website**. It powers 
 - **Runtime:** [Node.js](https://nodejs.org/)
 - **Framework:** [Express.js](https://expressjs.com/)
 - **API Client:** [Axios](https://axios-http.com/)
-- **AI Gateway:** [OpenRouter](https://openrouter.ai/)
+- **AI Gateway:** [NVIDIA AI Foundation Models](https://www.nvidia.com/en-us/ai-data-science/generative-ai/)
 - **Environment Management:** [dotenv](https://github.com/motdotla/dotenv)
 - **Development Helper:** [Nodemon](https://nodemon.io/)
 
@@ -44,7 +44,9 @@ This is the backend service for **Mayank Singh's Portfolio Website**. It powers 
    Create a `.env` file in the root directory and add the following:
    ```env
    PORT=3000
-   OPENROUTER_API_KEY=your_api_key_here
+   NVIDIA_API_KEY=your_nvidia_api_key_here
+   SARVAM_API_KEY=your_sarvam_api_key_here
+   OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 
 4. **Run the server:**

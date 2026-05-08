@@ -73,8 +73,48 @@ const handleStreamingResponse = (response, res) => {
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-// Main Chat Route (Currently using Sarvam AI for the frontend)
+// Main Chat Route (Updated to use NVIDIA AI)
 app.post('/api/chat', async (req, res) => {
+    try {
+        const { message } = req.body;
+        if (!message) return res.status(400).json({ error: 'Message is required' });
+
+        const NVIDIA_API_KEY = process.env.NVIDIA_API_KEY;
+        const response = await axios.post(
+            'https://integrate.api.nvidia.com/v1/chat/completions',
+            {
+                model: 'google/gemma-3n-e4b-it',
+                messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: message }],
+                temperature: 0.2,
+                top_p: 0.7,
+                max_tokens: 512,
+                stream: true
+            },
+            {
+                headers: { 
+                    'Authorization': `Bearer ${NVIDIA_API_KEY}`, 
+                    'Content-Type': 'application/json',
+                    'Accept': 'text/event-stream'
+                },
+                responseType: 'stream'
+            }
+        );
+
+        handleStreamingResponse(response, res);
+    } catch (error) {
+        if (error.response) {
+            console.error('NVIDIA AI Error Status:', error.response.status);
+            console.error('NVIDIA AI Error Data:', error.response.data);
+        } else {
+            console.error('NVIDIA AI Error Message:', error.message);
+        }
+        res.write(`data: ${JSON.stringify({ error: 'Failed to get response from NVIDIA AI. Please check your API key and connection.' })}\n\n`);
+        res.end();
+    }
+});
+
+// Alternative Route for Sarvam AI (Previous default)
+app.post('/api/sarvam-chat', async (req, res) => {
     try {
         const { message } = req.body;
         if (!message) return res.status(400).json({ error: 'Message is required' });
@@ -83,7 +123,7 @@ app.post('/api/chat', async (req, res) => {
         const response = await axios.post(
             'https://api.sarvam.ai/v1/chat/completions',
             {
-                model: 'sarvam-30b', // Updated model as requested
+                model: 'sarvam-30b',
                 messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: message }],
                 stream: true
             },
